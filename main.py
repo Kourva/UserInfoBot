@@ -10,8 +10,10 @@ import telebot
 with open("conf.py") as data:
     exec(data.read())
 
+    
 # Define bot
 bot = telebot.TeleBot(config["token"])
+print("{:_^30}".format(" bot in running "))
 
 
 # Class that creates a member with all needed stuff
@@ -32,18 +34,23 @@ class User:
 
 
 # Start command
-@bot.message_handler(commands=["start"])
+@bot.message_handler(commands=["start"]) # handles only 'start' command
 def start_command(message):
+    # replies start message
     bot.reply_to(message, "Привет, Send any message to get your info")
 
 
 # All messages
-@bot.message_handler(func=lambda _: True)
+@bot.message_handler(func=lambda _: True) # handles all messages (out lambda is always True)
 def all_messages(message):
+    # generates a user from User class
     user = User(message)
+    
+    # replies user info using whoami() method
     bot.reply_to(message, user.whoami(), parse_mode="MarkdownV2")
-
-
+    
+    
+    
 if __name__ == "__main__":
     # Run the bot in infinity mode
     bot.infinity_polling()
