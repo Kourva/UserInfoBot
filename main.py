@@ -20,10 +20,10 @@ print("{:_^30}".format(" bot in running "))
 class User:
     def __init__(self, message):
         # takes user info from message
-        self.firstname = message.from_user.first_name
-        self.lastname = message.from_user.last_name
-        self.username = message.from_user.username
-        self.chatid = message.from_user.id
+        self.firstname = message.from_user.first_name  # first name
+        self.lastname = message.from_user.last_name    # last name
+        self.username = message.from_user.username     # username
+        self.chatid = message.from_user.id             # chatid
 
     def whoami(self):
         # returns user info as string
@@ -41,13 +41,13 @@ def start_command(message):
 
 
 # All messages
-@bot.message_handler(func=lambda _: True) # handles all messages (out lambda is always True)
+@bot.message_handler(func=lambda _: True) # handles all messages (our lambda is always True)
 def all_messages(message):
     # generates a user from User class
     user = User(message)
     
     # replies user info using whoami() method
-    bot.reply_to(message, user.whoami(), parse_mode="MarkdownV2")
+    bot.reply_to(message, user.whoami(), parse_mode="MarkdownV2") # uses 'MarkdownV2' to make chatid copiable
     
     
     
